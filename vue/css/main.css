@@ -65,10 +65,13 @@ button {
 }
 
 .review-form {
+    display: flex;
+    flex-direction: column;
     width: 400px;
     padding: 20px;
     margin: 40px;
     border: 1px solid #d8d8d8;
+    border-radius: 10px;
 }
 
 input {
@@ -97,4 +100,28 @@ textarea {
 .BUTTON,.SIZE{
     display: flex;
     gap: 20px;
+}
+.inputRadio{
+    display: flex;
+}
+.reviews {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+.reviews > ul{
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем отступы списка */
+}
+.reviews ul > li > p{
+    font-style: italic;
+}
+.review-item {
+    background-color: #fff; /* Белый фон для каждого отзыва */
+    border: 1px solid #ccc; /* Рамка вокруг отзыва */
+    border-radius: 5px; /* Закругленные углы у отзыва */
+    padding: 15px; /* Внутренние отступы у отзыва */
+    margin-bottom: 10px; /* Отступ между отзывами */
 }
