@@ -12,6 +12,9 @@
 </head>
 <body>
 <div id="app">
+    <div class="cart">
+        <p>Cart({{ cart }})</p>
+    </div>
 
     <div class="product">
 
@@ -32,8 +35,13 @@
             </ul>
 
             <div v-for="variant in variants" :key="variant.variantId">
-                <p>{{ variant.variantColor }}</p>
+                <p @mouseover="updateProduct(variant.variantImage)">
+                    {{ variant.variantColor }}
+                </p>
             </div>
+
+            <button v-on:click="addToCart">Add to cart</button>
+            <button v-on:click="deliteToCart">Delite to cart</button>
 
             <div v-for="size in sizes">
                 <p>{{size}}</p>
