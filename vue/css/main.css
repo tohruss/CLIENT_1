@@ -112,16 +112,16 @@ textarea {
     margin-top: 20px;
 }
 .reviews > ul{
-    list-style-type: none; /* Убираем маркеры списка */
-    padding: 0; /* Убираем отступы списка */
+    list-style-type: none;
+    padding: 0;
 }
 .reviews ul > li > p{
     font-style: italic;
 }
 .review-item {
-    background-color: #fff; /* Белый фон для каждого отзыва */
-    border: 1px solid #ccc; /* Рамка вокруг отзыва */
-    border-radius: 5px; /* Закругленные углы у отзыва */
-    padding: 15px; /* Внутренние отступы у отзыва */
-    margin-bottom: 10px; /* Отступ между отзывами */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
 }
