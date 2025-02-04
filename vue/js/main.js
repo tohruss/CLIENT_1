@@ -109,7 +109,8 @@ Vue.component('product', {
         },
         addReview(productReview) {
             this.reviews.push(productReview)
-        }
+            localStorage.setItem('reviews', JSON.stringify(this.reviews));
+        },
 
     },
     computed: {
@@ -143,9 +144,15 @@ Vue.component('product', {
     },
     mounted() {
         eventBus.$on('review-submitted', productReview => {
-            this.reviews.push(productReview)
-        })
+            this.reviews.push(productReview);
+            localStorage.setItem('reviews', JSON.stringify(this.reviews));
+        });
+        const savedReviews = localStorage.getItem('reviews');
+        if (savedReviews) {
+            this.reviews = JSON.parse(savedReviews);
+        }
     }
+
 
 
 })
@@ -250,7 +257,8 @@ Vue.component('product-tabs', {
     data() {
         return {
             tabs: ['Reviews', 'Make a Review', 'Shipping', 'Details'],
-            selectedTab: 'Reviews'
+            selectedTab: 'Reviews',
+            showModal: false,
         }
     },
     template: `
@@ -262,6 +270,15 @@ Vue.component('product-tabs', {
                         @click="selectedTab = tab"
                     >{{ tab }}</span>
                 </ul>
+                <button v-if="selectedTab === 'Make a Review'" @click="showModal = true">Оставить отзыв</button>
+
+                <div v-if="showModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" @click="showModal = false">&times;</span>
+                        <product-review @review-submitted="handleReviewSubmit"></product-review>
+                    </div>
+                </div>
+                
                 <div class="reviews" v-show="selectedTab === 'Reviews'">
                     <p v-if="!reviews.length">Пока нет отзывов.</p>
                     <ul>
@@ -273,7 +290,7 @@ Vue.component('product-tabs', {
                     </ul>
                 </div>
                 <div v-show="selectedTab === 'Make a Review'">
-                    <product-review></product-review>
+                    <modal></modal>
                 </div>
                 <div v-show="selectedTab === 'Shipping'">
                     <p>Shipping Cost: {{ shipping }}</p> 
@@ -283,8 +300,15 @@ Vue.component('product-tabs', {
                 </div>
         </div>
             </div>
-        `,
+    `,
+    methods: {
+        handleReviewSubmit(review) {
+            this.$emit('review-submitted', review); // Передаем отзыв в родительский компонент
+            this.showModal = false; // Закрываем модальное окно после отправки
+        }
+    }
 });
+
 let app = new Vue({
     el: '#app',
     data: {
